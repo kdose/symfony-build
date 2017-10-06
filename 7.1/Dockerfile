@@ -1,13 +1,8 @@
-FROM php:7.1-apache
+FROM php:7.1
 
 # grundlegende Software
 RUN apt-get update && \
     apt-get install -y apt-transport-https wget zip unzip bzip2 ruby ruby-dev gcc rpm subversion git
-
-# apache mods
-# TODO apache wird wahrscheinlich nicht benötigt
-RUN a2enmod rewrite && \
-    service apache2 restart
 
 # php extensions (und dafür benötigte deps) installieren
 RUN apt-get install -y libicu-dev libldap2-dev && \
