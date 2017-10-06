@@ -2,7 +2,7 @@ FROM php:7.2-rc
 
 # grundlegende Software
 RUN apt-get update && \
-    apt-get install -y apt-transport-https wget zip unzip bzip2 ruby ruby-dev gcc rpm subversion git
+    apt-get install -y apt-transport-https wget zip unzip bzip2 ruby ruby-dev gcc rpm subversion git gnupg
 
 # php extensions (und dafür benötigte deps) installieren
 RUN apt-get install -y libicu-dev libldap2-dev && \
