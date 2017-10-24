@@ -10,7 +10,10 @@ RUN apt-get install -y libicu-dev libldap2-dev && \
     printf "\n" | pecl install apcu && \
     docker-php-ext-enable apcu && \
     docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
-    docker-php-ext-install ldap
+    docker-php-ext-install ldap && \
+    docker-php-ext-install -j$(nproc) iconv mcrypt && \
+    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
+    docker-php-ext-install -j$(nproc) gd
 
 # yarn installieren
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
