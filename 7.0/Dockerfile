@@ -36,5 +36,5 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
     npm install -g bower uglify-js
 
 # symbolische Links setzen
-RUN ln -s /usr/bin/nodejs /usr/local/bin/node && ln -s /usr/bin/bower /usr/local/bin/bower
+RUN ln -s /usr/bin/nodejs /usr/local/bin/node && ln -s /usr/bin/bower /usr/local/bin/bower && ln -s /usr/bin/uglifyjs /usr/local/bin/uglifyjs
 
