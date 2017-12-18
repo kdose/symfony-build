@@ -23,7 +23,7 @@ RUN apt-get install -y libicu-dev libldap2-dev \
 # yarn installieren
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get update && apt-get install -y yarn=1.2.1-1
+    apt-get update && apt-get install -y yarn
 
 # eigene php.ini verwenden (memory-limit)
 COPY php.ini /usr/local/etc/php/php.ini
