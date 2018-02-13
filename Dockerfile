@@ -2,7 +2,7 @@ FROM php:7.1
 
 # grundlegende Software
 RUN apt-get update && \
-    apt-get install -y apt-transport-https wget zip unzip bzip2 ruby ruby-dev gcc rpm subversion git gnupg
+    apt-get install -y automake libtool apt-transport-https wget zip unzip bzip2 ruby ruby-dev gcc rpm subversion git gnupg
 
 # php extensions (und dafür benötigte deps) installieren
 RUN apt-get install -y libicu-dev libldap2-dev \
@@ -18,7 +18,8 @@ RUN apt-get install -y libicu-dev libldap2-dev \
     docker-php-ext-install -j$(nproc) iconv mcrypt && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-install -j$(nproc) gd && \
-    docker-php-ext-install opcache
+    docker-php-ext-install opcache && \
+    docker-php-ext-install zip
 
 # yarn installieren
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
