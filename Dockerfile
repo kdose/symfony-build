@@ -9,7 +9,8 @@ RUN apt-get install -y libicu-dev libldap2-dev \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libmcrypt-dev \
-    libpng-dev && \
+    libpng-dev \
+    libxml2-dev && \
     docker-php-ext-install pdo pdo_mysql intl  && \
     printf "\n" | pecl install apcu && \
     docker-php-ext-enable apcu && \
@@ -19,7 +20,8 @@ RUN apt-get install -y libicu-dev libldap2-dev \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-install -j$(nproc) gd && \
     docker-php-ext-install opcache && \
-    docker-php-ext-install zip
+    docker-php-ext-install zip && \
+    docker-php-ext-install soap
 
 # yarn installieren
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
