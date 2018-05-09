@@ -21,7 +21,8 @@ RUN apt-get install -y libicu-dev libldap2-dev \
     docker-php-ext-install -j$(nproc) gd && \
     docker-php-ext-install opcache && \
     docker-php-ext-install zip && \
-    docker-php-ext-install soap
+    docker-php-ext-install soap && \
+    docker-php-ext-install bcmath
 
 # yarn installieren
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
