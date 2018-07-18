@@ -1,22 +1,17 @@
-FROM php:7.1
+FROM php:7.2
 
 # grundlegende Software
 RUN apt-get update && \
-    apt-get install -y automake libtool apt-transport-https wget zip unzip bzip2 ruby ruby-dev gcc rpm subversion git gnupg
+    apt-get install -y automake libtool apt-transport-https wget zip unzip bzip2 gcc rpm subversion git gnupg
 
 # php extensions (und dafür benötigte deps) installieren
-RUN apt-get install -y libicu-dev libldap2-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libmcrypt-dev \
-    libpng-dev \
-    libxml2-dev && \
-    docker-php-ext-install pdo pdo_mysql intl  && \
+RUN apt-get install -y libicu-dev libldap2-dev libjpeg62-turbo-dev libpng-dev libfreetype6-dev libxml2-dev && \
+    docker-php-ext-install pdo pdo_mysql intl && \
     printf "\n" | pecl install apcu && \
     docker-php-ext-enable apcu && \
     docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
     docker-php-ext-install ldap && \
-    docker-php-ext-install -j$(nproc) iconv mcrypt && \
+    docker-php-ext-install -j$(nproc) iconv && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-install -j$(nproc) gd && \
     docker-php-ext-install opcache && \
@@ -39,14 +34,6 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
     mv composer.phar /usr/local/bin/composer && \
     composer global require hirak/prestissimo
 
-# compass installieren
-RUN gem update --system && \
-    gem install compass
-
 # Node und Node-Pakete installieren
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
-    apt-get install -y nodejs && \
-    npm install -g bower uglify-js
-
-# symbolische Links setzen
-RUN ln -s /usr/bin/nodejs /usr/local/bin/node && ln -s /usr/bin/bower /usr/local/bin/bower && ln -s /usr/bin/uglifyjs /usr/local/bin/uglifyjs
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+    apt-get install -y nodejs
